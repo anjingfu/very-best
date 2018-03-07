@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root :to => "venues#index"
+  root :to => "dishes#index"
 
   #test exit - for git
   # Routes for the Bookmark resource:
