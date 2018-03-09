@@ -100,9 +100,20 @@
         </a>
         </td>
         <td>
+          <% if Bookmark.find(dish.id).id.present? %>
             <a href="/venues/<%= Venue.find(dish.id).id %>">
               <%= Venue.find(dish.id).name %>
-            </a>          
+            </a> 
+          <% else %>
+            <form action="/create_bookmark" method="post">
+              <button class="btn btn-link">
+                <i class="fa fa-heart-o"></i>
+              </button>
+            </form>
+            <a href="/bookmarks/create_new" class="btn btn-link">
+            <i class="fa fa-heart"></i>
+            </a>
+          <% end %>
         </td>
         <td>
           <% if dish.cuisine.present? %>
