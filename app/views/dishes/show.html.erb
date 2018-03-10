@@ -38,27 +38,27 @@
     </form>
     </li>
       </tr>
+      <% Bookmark.where({:dish_id => @dish.id}).each do |bookmark| %>
       <tr>
-          <% if Bookmark.find(@dish.id).id.present? %>
         <td>
             <a href="/venues/<%= Venue.find(@dish.id).id %>">
               <%= Venue.find(@dish.id).name %>
             </a> 
         </td>
         <td>
-          about <%= time_ago_in_words(Bookmark.find(@dish.id).created_at) %> ago
+          about <%= time_ago_in_words(bookmark.created_at) %> ago
           <div class="btn-group btn-group-xs float-right">
-            <a href="/bookmarks/<%= Bookmark.find(@dish.id).id %>/edit">
+            <a href="/bookmarks/<%= bookmark.id %>/edit">
               <i class="fa fa-edit"></i>
             </a>
             <a></a>
-            <a href="/delete_bookmark/<%= Bookmark.find(@dish.id).id %>" rel="nofollow">
+            <a href="/delete_bookmark/<%= bookmark.id %>" rel="nofollow">
               <i class="fa fa-trash-o"></i> 
             </a> 
           </div>
         </td>
-        <% end %>
       </tr>
+      <% end %>
       </table>
       <form action="/dishes">
       <button class="btn btn-secondary btn-block mb-1">
