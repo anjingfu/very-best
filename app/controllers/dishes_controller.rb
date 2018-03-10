@@ -45,12 +45,14 @@ class DishesController < ApplicationController
 
   def edit
     @dish = Dish.find(params[:id])
+    @bookmark = Bookmark.new
 
     render("dishes/edit.html.erb")
   end
 
   def update
     @dish = Dish.find(params[:id])
+    @bookmark = Bookmark.new
 
     @dish.name = params[:name]
     @dish.cuisine_id = params[:cuisine_id]
@@ -73,6 +75,7 @@ class DishesController < ApplicationController
 
   def destroy
     @dish = Dish.find(params[:id])
+    @bookmark = Bookmark.new
 
     @dish.destroy
 
