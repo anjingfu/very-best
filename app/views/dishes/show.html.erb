@@ -46,7 +46,7 @@
           </small>
         </li>
         
-        <% @dish.bookmarks.each do |bookmark| %>
+        <% @dish.bookmarks.order(:created_at).reverse_order.each do |bookmark| %>
         <li class="list-group-item">
             <div>
             <a href="/venues/<%= Venue.find(bookmark.venue_id).id %>">
