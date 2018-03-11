@@ -46,11 +46,11 @@
           </small>
         </li>
         
-          <li class="list-group-item">
-            <% Bookmark.where({:dish_id => @dish.id}).each do |bookmark| %>
+        <% @dish.bookmarks.each do |bookmark| %>
+        <li class="list-group-item">
             <div>
-            <a href="/venues/<%= Venue.find(@dish.id).id %>">
-              <%= Venue.find(@dish.id).name %>
+            <a href="/venues/<%= Venue.find(bookmark.venue_id).id %>">
+              <%= Venue.find(bookmark.venue_id).name %>
             </a>
           <small class="float-right text-muted"> 
           about <%= time_ago_in_words(bookmark.created_at) %> ago

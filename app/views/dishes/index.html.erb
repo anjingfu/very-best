@@ -72,20 +72,25 @@
           <%= dish.name  %>
         </a>
         </td>
-        <td style="white-space: nowrap">
-          <% if Bookmark.where({:dish_id => dish.id}).present? %>
-            <a href="/venues/<%= Venue.find(dish.id).id %>">
-              <%= Venue.find(dish.id).name %>
+        <td>
+          <% if dish.bookmarks.present? %>
+            <a href="/venues/<%= Venue.find(dish.bookmarks.first.venue_id).id %>">
+              <%= Venue.find(dish.bookmarks.first.venue_id).name %>
             </a> 
           <% else %>
             <form action="/create_bookmark" method="post">
+              <label for="venue_id" class="control-label sr-only">
+                Venue
+              </label>
               <select name="venue_id" id="venue_id" class="form-control form-control-sm mr-sm-1"><option value="">Choose a venue...</option>
               <% Venue.all.order(:name).each do |venue| %>
               <option value="venue.id"><%=venue.name%></option>
-              <% end %></select>
-              <button class="btn btn-primary btn-sm">
-                <i class="fa fa-heart"></i>
-              </button>
+          <% end %>
+              </select>
+
+                <button class="btn btn-primary btn-sm">
+                  <i class="fa fa-heart"></i>
+                </button>
             </form>
           <% end %>
         </td>
