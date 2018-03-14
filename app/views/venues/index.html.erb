@@ -42,7 +42,7 @@
       <div class="row m-b-2">
         <div class="col-md-12">
           <div>
-            <div id="location_map" style="height: 480px;"></div>
+            <div id="location_map" style="height: 360px;"></div>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
       
     <ul class="list-group list-group-flush">
       
-      <% @venues.each do |venue|%>
+      <% @venues.order(:name).each do |venue|%>
       
       <li class="list-group-item">
         <a href="/venues/<%=venue.id%>">
@@ -65,7 +65,7 @@
       </li>
       <% end %>
     </ul>
-    
+     <%= paginate @venues, theme: 'twitter-bootstrap-4' %>
     <div class="card-footer text-center">
         
       </div>
