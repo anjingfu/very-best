@@ -1,57 +1,32 @@
-<head>
-  <meta charset="utf-8">
-  <title>VeryBest</title>
 
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" crossorigin="anonymous">
-  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-  <style>
-    /* Only necessary if you are using navbar-fixed-top */
-    body {
-      padding-top: 60px;
-    }
-  </style>
-
-  <link rel="stylesheet" media="all" href="/assets/application-9644eb475d3bf8c642abc71074642eae4f027cea65d4aec4553ae97d4dde88ee.css" />
-  <script src="/assets/application-1ab3ed18f9c2f6e270f40d47082f8c4d62328d6a543735e9bbce394ed953fed8.js"></script>
-  <meta name="csrf-param" content="authenticity_token" />
-<meta name="csrf-token" content="G3B3kNooV/5Sv7bl4JAjNCNPLuUUKM8LC0yn0N9Y/0hs5Ot4OkEkkyasHegyDPjBuO6bzwznO8IW+gpisYzITQ==" />
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" crossorigin="anonymous"></script>
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-</head>
-
-<body>
 <div class="row mt-2 mb-1">
   
     <div class = "col-md-3">
-    <%= search_form_for @q, :class => "collapse", :id => "venues_filters" do |f| %>
+    <%= search_form_for @q, :class => "collapse", :id => "dishes_filters" do |f| %>
       <p class="lead">Narrow results:</p>
       
         <div class="form-group">
-          <%= f.label :name_cont, "Name contains" %>
-          <%= f.text_field :name_cont, :class => "form-control", :placeholder => "Name contains" %>
+          <label for="q_name_cont">Name contains</label>
+          <input class= "form-control" placeholder= "Name contains" type="text" name= "q[name_cont]" id= "q_name_cont" />
         </div>
         
         <div class="form-group">
-        <label for="q_cuisine_id_eq_any">Cuisine</label>
+          <label for="q_cuisine_id_eq_any">Cuisine</label>
               <% Cuisine.all.each do |c| %>
-            <div>
-              <%= check_box_tag('q[cuisine_id_eq_any][]', c.id, (true if @q.cuisine_id_eq_any.try(:include?, c.id))) %>
-              <%= c.name %>
-            </div>
-          <% end %>
+                <div class = checkbox>
+                  <label>
+                  <%=check_box_tag('q[cuisine_id_eq_any][]', c.id) %>
+                  <%= c.name %>
+                  </label>
+                </div>
+              <% end %>
         </div>
         
       <%= f.submit :class => "btn btn-primary btn-block mb-1" %>
 
       <a href="/dishes" class="btn btn-secondary btn-block mb-1">Clear filters</a>
     <% end %>
-    <a class="btn btn-secondary btn-block mb-1" data-toggle="collapse" href="#venues_filters">
+    <a class="btn btn-secondary btn-block mb-1" data-toggle="collapse" href="#dishes_filters">
       Show Filters
     </a>
   </div>
@@ -79,12 +54,15 @@
             </a> 
           <% else %>
             <form action="/create_bookmark" method="post">
+              <input name = "authenticity_token" type = "hidden" value = <%=form_authenticity_token%>>
+              <input type = "hidden" name = "user_id" value = "<%=current_user.id%>">
+              <input type = "hidden" name = "dish_id" value = "<%=dish.id%>">
               <label for="venue_id" class="control-label sr-only">
                 Venue
               </label>
               <select name="venue_id" id="venue_id" class="form-control form-control-sm mr-sm-1"><option value="">Choose a venue...</option>
               <% Venue.all.order(:name).each do |venue| %>
-              <option value="venue.id"><%=venue.name%></option>
+              <option value="<%=venue.id%>"><%=venue.name%></option>
           <% end %>
               </select>
 
@@ -116,4 +94,4 @@
     </a>
   </div>
 </div>
-</body>
+
