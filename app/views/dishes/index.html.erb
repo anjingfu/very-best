@@ -12,7 +12,7 @@
         
         <div class="form-group">
           <label for="q_cuisine_id_eq_any">Cuisine</label>
-              <% Cuisine.all.each do |c| %>
+              <% Cuisine.all.order(:name).each do |c| %>
                 <div class = checkbox>
                   <label>
                   <%=check_box_tag('q[cuisine_id_eq_any][]', c.id) %>
@@ -82,7 +82,6 @@
       </tr>
       <% end %>
     </table>
-     <%= paginate @dishes, theme: 'twitter-bootstrap-4' %>
     <div class="card-footer text-center">
         
     </div>

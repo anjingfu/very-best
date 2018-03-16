@@ -43,7 +43,7 @@ class VenuesController < ApplicationController
 
       case referer
       when "/venues/new", "/create_venue"
-        redirect_to("/venues")
+        redirect_to("/dishes")
       else
         redirect_back(:fallback_location => "/", :notice => "Venue created successfully.")
       end
